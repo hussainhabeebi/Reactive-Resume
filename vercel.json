@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/client/package.json",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "apps/server/main.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/apps/server/main.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/apps/client/$1"
+    }
+  ],
+  "env": {
+    "MONGO_URI": "your_mongodb_connection_string",
+    "GOOGLE_CLIENT_ID": "your_google_client_id",
+    "GOOGLE_CLIENT_SECRET": "your_google_client_secret",
+    "NEXT_PUBLIC_API_URL": "https://your-vercel-deployment.vercel.app/api"
+  }
+}
